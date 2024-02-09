@@ -4,22 +4,37 @@ import 'package:ecommerce_app/screens/productpage.dart';
 
 class Productdisp extends StatefulWidget {
   int i = 0;
-  Productdisp({required this.i, super.key});
+  int image1 = 0;
+
+  Productdisp({required this.i, required this.image1, super.key});
 
   @override
   State<Productdisp> createState() => _ProductdispState();
 }
 
 class _ProductdispState extends State<Productdisp> {
+  int image1 = 0;
   int i = 0;
   @override
   void initState() {
     super.initState();
+    image1 = widget.image1;
     i = widget.i; // Set initial state based on the value of 'i'
   }
 
   bool pressed = false;
   final List<String> price = ["-", "\$75", "\$67"];
+  final List<String> asset = [
+    "lib/Images/pngegg.png",
+    "lib/Images/adidasshoe.png",
+    "lib/Images/jblspeake.png",
+    "lib/Images/nikeshoe.png",
+    "lib/Images/nikeshoe1.png",
+    "lib/Images/sneaker.png",
+    "lib/Images/sunglass.png",
+    "lib/Images/trolly.png",
+    "lib/Images/headphone.png",
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +64,13 @@ class _ProductdispState extends State<Productdisp> {
                       height: 170,
                       width: 140,
                       decoration: BoxDecoration(
-                          color: Colors.red.withOpacity(0.6),
+                          gradient: LinearGradient(
+                              colors: [
+                                Colors.red.withOpacity(1),
+                                Colors.black.withOpacity(1)
+                              ],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight),
                           borderRadius: BorderRadius.circular(13)),
                     ),
                   ),
@@ -60,8 +81,7 @@ class _ProductdispState extends State<Productdisp> {
                         child: Container(
                             height: 170,
                             width: 250,
-                            child: Image(
-                                image: AssetImage('lib/Images/pngegg.png'))),
+                            child: Image(image: AssetImage(asset[image1]))),
                       ))
                 ],
               ),

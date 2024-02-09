@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:ecommerce_app/constants/constants.dart';
 import 'package:ecommerce_app/components/productdisplay.dart';
@@ -63,6 +65,7 @@ class _HomescreenState extends State<Homescreen> {
                 ],
               ),
               const SingleChildScrollView(
+                //CATEGORY SELECTION ROW
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -134,7 +137,10 @@ class _HomescreenState extends State<Homescreen> {
                   height: 150,
                   width: 310,
                   decoration: BoxDecoration(
-                      color: Colors.grey,
+                      gradient: LinearGradient(
+                          colors: [Colors.red, Colors.black],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight),
                       borderRadius: BorderRadius.circular(25)),
                 ),
               ),
@@ -142,24 +148,31 @@ class _HomescreenState extends State<Homescreen> {
                 scrollDirection: Axis.horizontal,
                 child: Row(children: [
                   Productdisp(
+                    image1: 1,
+                    i: 1,
+                  ),
+                  Productdisp(
+                    image1: 0,
+                    i: 1,
+                  ),
+                  Productdisp(
+                    image1: 7,
+                    i: 1,
+                  ),
+                  Productdisp(
+                    image1: 5,
+                    i: 1,
+                  ),
+                  Productdisp(
+                    image1: 4,
                     i: 1,
                   ),
                   Productdisp(
                     i: 1,
+                    image1: 6,
                   ),
                   Productdisp(
-                    i: 1,
-                  ),
-                  Productdisp(
-                    i: 1,
-                  ),
-                  Productdisp(
-                    i: 1,
-                  ),
-                  Productdisp(
-                    i: 1,
-                  ),
-                  Productdisp(
+                    image1: 8,
                     i: 1,
                   ),
                 ]),
@@ -168,50 +181,51 @@ class _HomescreenState extends State<Homescreen> {
                 scrollDirection: Axis.horizontal,
                 child: Row(children: [
                   Productdisp(
+                    image1: 1,
                     i: 2,
                   ),
-                  Productdisp(i: 2),
-                  Productdisp(i: 2),
-                  Productdisp(i: 2),
-                  Productdisp(i: 2),
-                  Productdisp(i: 2),
-                  Productdisp(i: 2),
+                  Productdisp(image1: 1, i: 2),
+                  Productdisp(image1: 2, i: 2),
+                  Productdisp(image1: 0, i: 2),
+                  Productdisp(image1: 4, i: 2),
+                  Productdisp(image1: 5, i: 2),
+                  Productdisp(image1: 6, i: 2),
                 ]),
               ),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(children: [
-                  Productdisp(i: 2),
-                  Productdisp(i: 2),
-                  Productdisp(i: 2),
-                  Productdisp(i: 2),
-                  Productdisp(i: 2),
-                  Productdisp(i: 2),
-                  Productdisp(i: 2),
+                  Productdisp(image1: 6, i: 2),
+                  Productdisp(image1: 7, i: 2),
+                  Productdisp(image1: 8, i: 2),
+                  Productdisp(image1: 4, i: 2),
+                  Productdisp(image1: 3, i: 2),
+                  Productdisp(image1: 2, i: 2),
+                  Productdisp(image1: 1, i: 2),
                 ]),
               ),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(children: [
-                  Productdisp(i: 2),
-                  Productdisp(i: 2),
-                  Productdisp(i: 2),
-                  Productdisp(i: 2),
-                  Productdisp(i: 2),
-                  Productdisp(i: 2),
-                  Productdisp(i: 2),
+                  Productdisp(image1: 0, i: 2),
+                  Productdisp(image1: 3, i: 2),
+                  Productdisp(image1: 2, i: 2),
+                  Productdisp(image1: 5, i: 2),
+                  Productdisp(image1: 6, i: 2),
+                  Productdisp(image1: 7, i: 2),
+                  Productdisp(image1: 3, i: 2),
                 ]),
               ),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(children: [
-                  Productdisp(i: 2),
-                  Productdisp(i: 2),
-                  Productdisp(i: 2),
-                  Productdisp(i: 2),
-                  Productdisp(i: 2),
-                  Productdisp(i: 2),
-                  Productdisp(i: 2),
+                  Productdisp(image1: 6, i: 2),
+                  Productdisp(image1: 3, i: 2),
+                  Productdisp(image1: 5, i: 2),
+                  Productdisp(image1: 7, i: 2),
+                  Productdisp(image1: 8, i: 2),
+                  Productdisp(image1: 6, i: 2),
+                  Productdisp(image1: 0, i: 2),
                 ]),
               ),
             ],
