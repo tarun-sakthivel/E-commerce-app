@@ -148,7 +148,7 @@ class _HomescreenState extends State<Homescreen> {
                 scrollDirection: Axis.horizontal,
                 child: Row(children: [
                   Productdisp(
-                    image1: 1,
+                    image1: 4,
                     i: 1,
                   ),
                   Productdisp(
@@ -184,7 +184,7 @@ class _HomescreenState extends State<Homescreen> {
                     image1: 1,
                     i: 2,
                   ),
-                  Productdisp(image1: 1, i: 2),
+                  Productdisp(image1: 5, i: 2),
                   Productdisp(image1: 2, i: 2),
                   Productdisp(image1: 0, i: 2),
                   Productdisp(image1: 4, i: 2),
@@ -195,7 +195,7 @@ class _HomescreenState extends State<Homescreen> {
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(children: [
-                  Productdisp(image1: 6, i: 2),
+                  Productdisp(image1: 8, i: 2),
                   Productdisp(image1: 7, i: 2),
                   Productdisp(image1: 8, i: 2),
                   Productdisp(image1: 4, i: 2),
@@ -229,6 +229,18 @@ class _HomescreenState extends State<Homescreen> {
                 ]),
               ),
             ],
+          ),
+        ),
+        bottomNavigationBar: BottomAppBar(
+          shape: AutomaticNotchedShape(
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+              StadiumBorder()),
+          child: Container(
+            height: 100,
+            width: 300,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(25),
+                color: Color.fromRGBO(25, 25, 25, 1)),
           ),
         ),
       ),
