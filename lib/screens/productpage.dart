@@ -16,14 +16,14 @@ class _productpageState extends State<productpage> {
           scrollDirection: Axis.vertical,
           child: Column(
             children: [
-              Container(
+              SizedBox(
                 height: 200,
                 width: 300,
                 child: IconButton(
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    icon: Icon(Icons.home)),
+                    icon: const Icon(Icons.home)),
               )
             ],
           ),

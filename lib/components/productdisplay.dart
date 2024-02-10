@@ -1,4 +1,3 @@
-import 'package:ecommerce_app/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommerce_app/screens/productpage.dart';
 
@@ -42,8 +41,8 @@ class _ProductdispState extends State<Productdisp> {
       padding: const EdgeInsets.fromLTRB(10, 20, 10, 10),
       child: TextButton(
         onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (content) => productpage()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (content) => const productpage()));
         }, //for rounting to the page of the respective product page
         child: Container(
           height: 260,
@@ -78,7 +77,7 @@ class _ProductdispState extends State<Productdisp> {
                       flex: 65,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Container(
+                        child: SizedBox(
                             height: 170,
                             width: 250,
                             child: Image(image: AssetImage(asset[image1]))),
@@ -87,38 +86,44 @@ class _ProductdispState extends State<Productdisp> {
               ),
               Row(
                 children: [
-                  Text(
-                    price[i],
-                    style: TextStyle(
-                        fontSize: 28,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  SizedBox(
-                    width: 50,
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      setState(() {
-                        pressed = !pressed; // Toggle the value on each press
-                      });
-                    },
-                    icon: Icon(
-                      pressed
-                          ? Icons.favorite_rounded
-                          : Icons.favorite_outline_sharp,
+                  Expanded(
+                    flex: 60,
+                    child: Text(
+                      price[i],
+                      style: const TextStyle(
+                          fontSize: 28,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500),
                     ),
-                    color: Colors.pink,
-                    iconSize: 28,
+                  ),
+                  Expanded(
+                    flex: 40,
+                    child: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          pressed = !pressed; // Toggle the value on each press
+                        });
+                      },
+                      icon: Icon(
+                        pressed
+                            ? Icons.favorite_rounded
+                            : Icons.favorite_outline_sharp,
+                      ),
+                      color: Colors.pink,
+                      iconSize: 28,
+                    ),
                   )
                 ],
               ),
-              Text(
-                'Rolex watch premium',
-                style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.black),
+              Expanded(
+                flex: 100,
+                child: Text(
+                  'Rolex watch premium',
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black),
+                ),
               )
             ],
           ),
