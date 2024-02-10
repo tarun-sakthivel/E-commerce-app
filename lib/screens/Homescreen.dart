@@ -1,7 +1,10 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:ecommerce_app/screens/categorydisp.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommerce_app/components/productdisplay.dart';
+import 'package:speech_to_text/speech_recognition_result.dart';
+import 'package:speech_to_text/speech_to_text.dart';
 
 class Homescreen extends StatefulWidget {
   const Homescreen({super.key});
@@ -11,6 +14,81 @@ class Homescreen extends StatefulWidget {
 }
 
 class _HomescreenState extends State<Homescreen> {
+  List<String> uniqueSentences = [];
+  String lastRecognizedWords = '';
+  String works_text = '';
+  final TextEditingController _textController =
+      TextEditingController(); //creating object for the class
+
+  List<String> List_text = [];
+  final SpeechToText _speechToText = SpeechToText();
+  bool _speechEnabled = false;
+  final String _lastWords = '';
+  bool _isListening = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _initSpeech();
+  }
+
+  void _initSpeech() async {
+    _speechEnabled = await _speechToText.initialize();
+    setState(() {});
+  }
+
+  void _startListening() async {
+    await _speechToText.listen(onResult: _onSpeechResult);
+    setState(() {});
+  }
+
+  /*void _startListening() async {
+    await _speechToText.listen(onResult: _onSpeechResult);
+
+    setState(() {});
+    if (_isListening) {
+      _isListening = true;
+      while (_isListening) {
+        await _speechToText.listen(
+          onResult: _onSpeechResult,
+          localeId: 'en-US',
+        );
+      }
+    }
+    setState(() {
+      _isListening = true;
+      _startListening();
+    });
+  }*/
+
+  void _stopListening() async {
+    if (_isListening) {
+      _isListening = false;
+      await _speechToText.stop();
+      setState(() {});
+    }
+  }
+
+  void _onSpeechResult(SpeechRecognitionResult result) {
+    setState(() {
+      List_text.add(result.recognizedWords);
+      if (result.finalResult) {
+        String recognizedWords = result.recognizedWords;
+
+        if (recognizedWords != lastRecognizedWords) {
+          if (!uniqueSentences.contains(recognizedWords)) {
+            setState(() {
+              uniqueSentences.add(recognizedWords);
+            });
+          }
+          lastRecognizedWords = recognizedWords;
+        }
+      }
+      _textController.text = uniqueSentences.join(' ');
+      print('$uniqueSentences.join(' ')');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -61,10 +139,22 @@ class _HomescreenState extends State<Homescreen> {
                   children: [
                     const subtitle(title: 'Categories'),
                     IconButton(
-                      onPressed:
-                          () {}, //This is the onpressed function for the searching of the products
-                      icon: const Icon(
-                        Icons.search,
+                      onPressed: () {
+                        _speechToText.isNotListening
+                            ? _startListening
+                            : _stopListening;
+
+                        setState(() {
+                          _isListening = true;
+                          live_transcipt(uniqueSentences.join(' '));
+                        });
+                      }, //This is the onpressed function for the searching of the products
+                      icon: Icon(
+                        _isListening
+                            ?
+                            //SEARCH BUTTON TO INITIALIZE THE SPEECH FUNCTION
+                            Icons.mic
+                            : Icons.mic_off,
                         size: 32,
                         color: Colors.black,
                       ),
@@ -108,7 +198,7 @@ class _HomescreenState extends State<Homescreen> {
                         padding: const EdgeInsets.all(4.0),
                         child: TextButton(
                           onPressed: () {
-                            Search('Shoe', context);
+                            Search('shoe', context);
                           },
                           child: const Column(
                             children: [
@@ -134,7 +224,7 @@ class _HomescreenState extends State<Homescreen> {
                         padding: const EdgeInsets.all(4.0),
                         child: TextButton(
                           onPressed: () {
-                            Search('speakers', context);
+                            Search('speaker', context);
                           },
                           child: const Column(
                             children: [
@@ -293,17 +383,63 @@ class _HomescreenState extends State<Homescreen> {
                 ),
                 Padding(
                   //Advertisement display box
-                  padding: const EdgeInsets.all(10.0),
-                  child: Container(
-                    height: 150,
-                    width: 310,
-                    decoration: BoxDecoration(
-                        gradient: const LinearGradient(
-                            colors: [Colors.red, Colors.black],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight),
-                        borderRadius: BorderRadius.circular(25)),
-                  ),
+                  padding: const EdgeInsets.fromLTRB(10, 10, 10, 1),
+                  child: CarouselSlider(items: [
+                    Image(
+                      height: 200,
+                      width: 386,
+                      image: AssetImage("lib/Images/Group 44.png"),
+                      fit: BoxFit.fill,
+                    ),
+                    Image(
+                      height: 200,
+                      width: 386,
+                      image: AssetImage(
+                        "lib/Images/ad2.png",
+                      ),
+                    ),
+                    Image(
+                      height: 200,
+                      width: 386,
+                      image: AssetImage(
+                        "lib/Images/Group 46.png",
+                      ),
+                      fit: BoxFit.cover,
+                    )
+                  ], options: CarouselOptions(viewportFraction: 1)),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: 8,
+                      width: 8,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(60),
+                          color: Colors.grey),
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Container(
+                      height: 8,
+                      width: 8,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(60),
+                          color: Colors.grey),
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Container(
+                      height: 8,
+                      width: 8,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(60),
+                          color: Colors.grey),
+                    ),
+                  ],
                 ),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
@@ -345,48 +481,48 @@ class _HomescreenState extends State<Homescreen> {
                       image1: 1,
                       i: 2,
                     ),
-                    Productdisp(image1: 5, i: 2),
+                    Productdisp(image1: 5, i: 5),
                     Productdisp(image1: 2, i: 2),
-                    Productdisp(image1: 0, i: 2),
-                    Productdisp(image1: 4, i: 2),
-                    Productdisp(image1: 5, i: 2),
-                    Productdisp(image1: 6, i: 2),
+                    Productdisp(image1: 0, i: 0),
+                    Productdisp(image1: 4, i: 4),
+                    Productdisp(image1: 5, i: 5),
+                    Productdisp(image1: 6, i: 6),
                   ]),
                 ),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(children: [
-                    Productdisp(image1: 8, i: 2),
-                    Productdisp(image1: 7, i: 2),
-                    Productdisp(image1: 8, i: 2),
-                    Productdisp(image1: 4, i: 2),
-                    Productdisp(image1: 3, i: 2),
+                    Productdisp(image1: 8, i: 8),
+                    Productdisp(image1: 7, i: 7),
+                    Productdisp(image1: 8, i: 8),
+                    Productdisp(image1: 4, i: 4),
+                    Productdisp(image1: 3, i: 3),
                     Productdisp(image1: 2, i: 2),
-                    Productdisp(image1: 1, i: 2),
+                    Productdisp(image1: 1, i: 1),
                   ]),
                 ),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(children: [
-                    Productdisp(image1: 0, i: 2),
-                    Productdisp(image1: 3, i: 2),
+                    Productdisp(image1: 0, i: 0),
+                    Productdisp(image1: 3, i: 3),
                     Productdisp(image1: 2, i: 2),
-                    Productdisp(image1: 5, i: 2),
-                    Productdisp(image1: 6, i: 2),
-                    Productdisp(image1: 7, i: 2),
-                    Productdisp(image1: 3, i: 2),
+                    Productdisp(image1: 5, i: 5),
+                    Productdisp(image1: 6, i: 6),
+                    Productdisp(image1: 7, i: 7),
+                    Productdisp(image1: 3, i: 3),
                   ]),
                 ),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(children: [
-                    Productdisp(image1: 6, i: 2),
-                    Productdisp(image1: 3, i: 2),
-                    Productdisp(image1: 5, i: 2),
-                    Productdisp(image1: 7, i: 2),
-                    Productdisp(image1: 8, i: 2),
-                    Productdisp(image1: 6, i: 2),
-                    Productdisp(image1: 0, i: 2),
+                    Productdisp(image1: 6, i: 6),
+                    Productdisp(image1: 3, i: 3),
+                    Productdisp(image1: 5, i: 5),
+                    Productdisp(image1: 7, i: 7),
+                    Productdisp(image1: 8, i: 8),
+                    Productdisp(image1: 6, i: 6),
+                    Productdisp(image1: 0, i: 0),
                   ]),
                 ),
               ],
@@ -440,7 +576,7 @@ void Search(String tag, context) {
     'shoe',
     'glases',
     'headphone',
-    'speakers',
+    'speaker',
     'watches',
     'trolly',
     'sneaker'
@@ -463,6 +599,21 @@ void Search(String tag, context) {
   }
 }
 
+@override
+void live_transcipt(String lastwords) {
+  Container(
+    height: 200,
+    width: 100,
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25),
+        color: Colors.black.withOpacity(1)),
+    child: Text(
+      lastwords,
+      style: const TextStyle(color: Colors.white, fontSize: 24),
+    ),
+  );
+}
+
 void _showBottomAlertDialog(BuildContext context) {
   showDialog(
     context: context,
@@ -473,10 +624,10 @@ void _showBottomAlertDialog(BuildContext context) {
           child: AlertDialog(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-            buttonPadding: EdgeInsets.all(5),
+            buttonPadding: const EdgeInsets.all(5),
             backgroundColor: Colors.black.withOpacity(0.8),
             alignment: Alignment.bottomCenter,
-            title: Text(
+            title: const Text(
               'This page is under construction',
               style: TextStyle(
                   fontSize: 16,

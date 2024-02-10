@@ -22,7 +22,17 @@ class _ProductdispState extends State<Productdisp> {
   }
 
   bool pressed = false;
-  final List<String> price = ["-", "\$75", "\$67"];
+  final List<String> price = [
+    "\$75",
+    "\$67",
+    "\$62",
+    "\$37",
+    "\$44",
+    "\$57",
+    "\$76",
+    "\$91",
+    "\$52"
+  ];
   final List<String> asset = [
     "lib/Images/pngegg.png",
     "lib/Images/adidasshoe.png",
@@ -33,6 +43,18 @@ class _ProductdispState extends State<Productdisp> {
     "lib/Images/sunglass.png",
     "lib/Images/trolly.png",
     "lib/Images/headphone.png",
+  ];
+  final List<String> wordings = [
+    "Rolex Premium watch",
+    "Adidas jogging shoes",
+    "jbl high quality speaker",
+    "nike superfly shoes",
+    "nike vapour shoes",
+    "white sneakers ",
+    "Rabon galsses",
+    "American tourister trolly",
+    "High quality",
+    "High quality jbl headphone"
   ];
 
   @override
@@ -118,7 +140,7 @@ class _ProductdispState extends State<Productdisp> {
               Expanded(
                 flex: 100,
                 child: Text(
-                  'Rolex watch premium',
+                  wordings[i],
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w400,
