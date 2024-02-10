@@ -165,7 +165,7 @@ class _HomescreenState extends State<Homescreen> {
                   //CATEGORY SELECTION ROW
                   scrollDirection: Axis.horizontal,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
@@ -383,7 +383,7 @@ class _HomescreenState extends State<Homescreen> {
                 ),
                 Padding(
                   //Advertisement display box
-                  padding: const EdgeInsets.fromLTRB(10, 10, 10, 1),
+                  padding: const EdgeInsets.fromLTRB(10, 1, 10, 1),
                   child: CarouselSlider(items: [
                     Image(
                       height: 200,
@@ -417,7 +417,7 @@ class _HomescreenState extends State<Homescreen> {
                       width: 8,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(60),
-                          color: Colors.grey),
+                          color: Colors.black),
                     ),
                     SizedBox(
                       width: 5,
